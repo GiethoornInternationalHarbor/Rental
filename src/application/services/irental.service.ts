@@ -1,4 +1,5 @@
 import { Customer } from '../../domain/Customer';
+import { Request } from '../../domain/Request';
 
 export interface IRentalService {
 
@@ -8,7 +9,9 @@ export interface IRentalService {
 
   customerDeleted(customer: Customer): Promise<Customer>;
 
-  request(): Promise<Customer>;
+  request(): Promise<Request>;
 
-  accept(): Promise<Customer>;
+  accept(): Promise<boolean>;
+
+  decline(): Promise<boolean>;
 }

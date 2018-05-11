@@ -4,8 +4,8 @@ import { diContainer } from '../../di/di.config';
 import { TYPES } from '../../di/types';
 import { IMessageHandler } from '../messaging/imessage.handler';
 import { IMessagePublisher } from '../messaging/imessage.publisher';
-// import { getDatabaseClient, MongoDbClient } from '../mongodb/mongodb.client';
-// import { MongoDbTruckRepository } from '../mongodb/mongodb.truck.repository';
+import { getDatabaseClient, MongoDbClient } from '../mongodb/mongodb.client';
+import { MongoDbRequestRepository } from '../mongodb/mongodb.request.repository';
 import { getRabbitMQChannel, RabbitMQChannel } from '../rabbitmq/rabbitmq.channel';
 import { RabbitMQMessageHandler } from '../rabbitmq/rabbitmq.message.handler';
 import { RabbitMQMessagePublisher } from '../rabbitmq/rabbitmq.message.publisher';
@@ -69,9 +69,7 @@ export const InfrastructureContainerModule = new AsyncContainerModule(
         };
       });
 
-    // diContainer
-    //   .bind<IRentalRepository>(TYPES.IRentalRepository)
-    //   .to(MongoDbRentalRepository);
+    diContainer.bind<IRentalRepository>(TYPES.IRentalRepository).to(MongoDbRequestRepository);
 
     diContainer
       .bind<IRentalService>(TYPES.IRentalService)

@@ -2,6 +2,7 @@ export enum MessageType {
     Unknown,
     RentalRequested,
     RentalAccepted,
+    RentalDeclined,
     CustomerCreated,
     CustomerUpdated,
     CustomerDeleted
@@ -27,6 +28,7 @@ export namespace MessageType {
 const messageTypeName = new Map<MessageType, string>([
     [MessageType.RentalRequested, 'RentalRequestedEvent'],
     [MessageType.RentalAccepted, 'RentalAcceptedEvent'],
+    [MessageType.RentalDeclined, 'RentalDeclinedEvent'],
     [MessageType.CustomerCreated, 'CustomerCreatedEvent'],
     [MessageType.CustomerUpdated, 'CustomerUpdatedEvent'],
     [MessageType.CustomerDeleted, 'CustomerDeletedEvent']
