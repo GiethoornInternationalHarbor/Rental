@@ -15,15 +15,17 @@ export class MongoDbRequestRepository implements IRentalRepository {
     this.Model = dbClient.model<IRentalDocument>('Rental', RentalSchema);
   }
 
-  public async sendRequest(value: string): Promise<Request> {
-    return Request;
+  public async sendRequest(question: string): Promise<Request> {
+    const createRequest = await this.Model.create(question);
+    const createdRequest = mapModelToEntity<IRentalDocument, Request>(createRequest, Request);
+    return createdRequest;
   }
 
-  public async acceptRequest(): Promise<Request> {
-    return Request;
+  public async acceptRequest(): Promise<boolean> {
+    return true;
   }
 
-  public async declineRequest(): Promise<Request> {
-    return Request;
+  public async declineRequest(): Promise<boolean> {
+    return false;
   }
 }

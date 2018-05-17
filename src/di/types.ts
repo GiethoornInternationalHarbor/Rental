@@ -3,9 +3,7 @@ const TYPES = {
     IRentalService: Symbol.for('IRentalService'),
     MessagePublisherProvider: Symbol.for('MessagePublisherProvider'),
     MessageHandlerProvider: Symbol.for('MessageHandlerProvider'),
-    IRentalRepository: Symbol.for('IRentalRepository'),
-    MongoDbClient: Symbol.for('MongoDbClient'),
-    RabbitMQChannel: Symbol.for('RabbitMQChannel'),
+    RentalRepositoryProvider: Symbol.for('RentalRepositoryProvider'),
     MessageHandler: Symbol.for('MessageHandler')
   };
 

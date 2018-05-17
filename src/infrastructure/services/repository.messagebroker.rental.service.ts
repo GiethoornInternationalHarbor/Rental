@@ -1,9 +1,9 @@
-import { inject, injectable, postConstruct } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { IRentalService } from '../../application/services/irental.service';
 import { TYPES } from '../../di/types';
 import { Customer } from '../../domain/Customer';
 import { Request } from '../../domain/Request';
-import { MessagePublisherProvider } from '../di/di.config';
+import { MessagePublisherProvider, RentalRepositoryProvider } from '../di/di.config';
 import { IMessagePublisher } from '../messaging/imessage.publisher';
 import { MessageType } from '../messaging/message.types';
 import { RabbitMQExchange } from '../rabbitmq/rabbitmq.exchanges';
@@ -12,7 +12,8 @@ import { IRentalRepository } from '../repository/irental.repository';
 @injectable()
 export class RepositoryAndMessageBrokerRentalService implements IRentalService {
   constructor(
-    @inject(TYPES.IRentalRepository) private rentalRepository: IRentalRepository,
+    @inject(TYPES.RentalRepositoryProvider)
+    private readonly rentalRepositoryProvider: RentalRepositoryProvider,
     @inject(TYPES.MessagePublisherProvider)
     private messagePublisherProvider: MessagePublisherProvider
   ) {}
@@ -30,7 +31,8 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
   }
 
   public async request(): Promise<Request> {
-    const request = this.rentalRepository.sendRequest('request sended');
+    const request = await this.getRentalRepository();
+    request.sendRequest('request sended');
 
     // Also publish it as an message
     const messagePublisher = await this.getMessagePublisher();
@@ -40,16 +42,19 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
   }
 
   public async accept(): Promise<boolean> {
-
-    const request = this.rentalRepository.acceptRequest();
-
+    const request = await this.getRentalRepository();
+    request.acceptRequest();
     return true;
   }
 
   public async decline(): Promise<boolean> {
-    const request = this.rentalRepository.declineRequest();
-
+    const request = await this.getRentalRepository();
+    request.declineRequest();
     return false;
+  }
+
+  private async getRentalRepository() {
+    return this.rentalRepositoryProvider();
   }
 
   /**

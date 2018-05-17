@@ -1,4 +1,4 @@
-import { inject, injectable, postConstruct } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { IRentalService } from '../../application/services/irental.service';
 import { TYPES } from '../../di/types';
 import { Customer } from '../../domain/customer';
@@ -17,7 +17,6 @@ export class MessageBrokerHandlerRentalService {
     @inject(TYPES.IRentalService) private rentalService: IRentalService
   ) {}
 
-  @postConstruct()
   public async postInit() {
     this.messageHandler = await this.messageHandlerProvider(
       RabbitMQExchange.Default,
@@ -52,19 +51,19 @@ export class MessageBrokerHandlerRentalService {
   }
 
   private async handleCustomerCreated(body: any) {
-    const customer = new Customer(body);
+    const customer = new Customer();
 
     return this.rentalService.customerCreated(customer);
   }
 
   private async handleCustomerUpdated(body?: any) {
-    const customer = new Customer(body);
+    const customer = new Customer();
 
     return this.rentalService.customerUpdated(customer);
   }
 
   private async handleCustomerDeleted(body: any) {
-    const customer = new Customer(body);
+    const customer = new Customer();
 
     return this.rentalService.customerDeleted(customer);
   }

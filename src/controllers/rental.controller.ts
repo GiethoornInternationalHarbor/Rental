@@ -12,32 +12,27 @@ import { IRentalService } from '../application/services/irental.service';
 import { TYPES } from '../di/types';
 
 @controller('/api/rental')
-export class TruckController implements interfaces.Controller {
+export class RentalController implements interfaces.Controller {
   constructor(
     @inject(TYPES.IRentalService) private rentalService: IRentalService
   ) {}
 
-  @httpPost('/send')
-  private async arrive(
-    @request() req: express.Request,
-    @response() res: express.Response
-  ) {
+  @httpPost('/request')
+  private async arrive(@request() req: express.Request, @response() res: express.Response) {
     // tslint:disable-next-line:no-shadowed-variable
     const sendRequest = await this.rentalService.request();
-    res.status(201).json(sendRequest);
+    res.status(201).json(req.body);
   }
 
-  @httpPost('/check-request')
-  private async checkRequest(
-    @request() req: express.Request,
-    @response() res: express.Response
-  ) {
+  @httpPost('/accept')
+  private async accept(@request() req: express.Request, @response() res: express.Response) {
     const acceptedRequest = await this.rentalService.accept();
+    res.status(201).json(req.body);
+  }
+
+  @httpPost('/decline')
+  private async decline(@request() req: express.Request, @response() res: express.Response) {
     const declinedRequest = await this.rentalService.decline();
-    if (acceptedRequest === true) {
-        res.status(201).json(acceptedRequest);
-    } else {
-        res.status(201).json(declinedRequest);
-    }
+    res.status(201).json(req.body);
   }
 }
