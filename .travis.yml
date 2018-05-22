@@ -11,7 +11,6 @@ jobs:
       cache: yarn
       script:
         - yarn global add codecov
-        - yarn test
       after_success: 
         - yarn coverage
         - codecov
@@ -22,7 +21,7 @@ jobs:
         - docker pull "${IMAGE_NAME}:latest" || true
       install: skip
       env:
-        - IMAGE_NAME=giethoorninternationalharbor/RentalService
+        - IMAGE_NAME=giethoorninternationalharbor/rentalservice
         - COMMIT=${TRAVIS_COMMIT::8}
       script:
         - docker build --pull --cache-from "${IMAGE_NAME}:latest" --tag "$IMAGE_NAME" .
