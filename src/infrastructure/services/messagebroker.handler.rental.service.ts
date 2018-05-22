@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { IRentalService } from '../../application/services/irental.service';
 import { TYPES } from '../../di/types';
-import { Customer } from '../../domain/customer';
+import { Customer } from '../../domain/Customer';
 import { MessageHandlerProvider } from '../di/di.config';
 import { IMessageHandler } from '../messaging/imessage.handler';
 import { MessageType } from '../messaging/message.types';
@@ -65,6 +65,6 @@ export class MessageBrokerHandlerRentalService {
   private async handleCustomerDeleted(body: any) {
     const customer = new Customer();
 
-    return this.rentalService.customerDeleted(customer);
+    return this.rentalService.customerDeleted(customer._id);
   }
 }
