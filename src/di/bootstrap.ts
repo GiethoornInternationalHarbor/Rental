@@ -3,7 +3,7 @@ import express from 'express';
 import helmet from 'helmet';
 import { Container } from 'inversify';
 import { interfaces, InversifyExpressServer, TYPE } from 'inversify-express-utils';
-import '../controllers/truck.controller';
+import '../controllers/rental.controller';
 import { checkInfrastructureInitialization, InfrastructureContainerModule} from '../infrastructure/di/di.config';
 import { TYPES } from './types';
 

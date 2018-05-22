@@ -4,7 +4,8 @@ const TYPES = {
     MessagePublisherProvider: Symbol.for('MessagePublisherProvider'),
     MessageHandlerProvider: Symbol.for('MessageHandlerProvider'),
     RentalRepositoryProvider: Symbol.for('RentalRepositoryProvider'),
-    MessageHandler: Symbol.for('MessageHandler')
+    MessageHandler: Symbol.for('MessageHandler'),
+    MongoDbClient: Symbol.for('MongoDbClient')
   };
 
 export { TYPES };

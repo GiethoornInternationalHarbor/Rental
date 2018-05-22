@@ -7,7 +7,7 @@ export interface IRentalService {
 
   customerUpdated(customer: Customer): Promise<Customer>;
 
-  customerDeleted(customer: Customer): Promise<Customer>;
+  customerDeleted(id: string): Promise<Customer>;
 
   request(): Promise<Request>;
 

@@ -26,8 +26,8 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
     return customer;
   }
 
-  public async customerDeleted(customer: Customer): Promise<Customer> {
-    return customer;
+  public async customerDeleted(id: string): Promise<Customer> {
+    return Customer;
   }
 
   public async request(): Promise<Request> {
