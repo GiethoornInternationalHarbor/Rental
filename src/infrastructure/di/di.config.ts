@@ -49,10 +49,7 @@ export const InfrastructureContainerModule = new ContainerModule(bind => {
 
       // We have the connection and channel now
       // Need to assert the exchange (this ensures the exchange exists)
-      await channel.assertExchange(exchange, 'fanout', {
-        durable: true,
-        autoDelete: false
-      });
+      await channel.assertExchange(exchange, 'fanout', {durable: true, autoDelete: false});
 
       await channel.assertQueue(queue);
       await channel.bindQueue(queue, exchange, '');
@@ -62,7 +59,7 @@ export const InfrastructureContainerModule = new ContainerModule(bind => {
     };
   });
 
-  bind<RentalRepositoryProvider>(TYPES.IRentalService).toProvider<IRentalRepository>(context => {
+  bind<RentalRepositoryProvider>(TYPES.RentalRepositoryProvider).toProvider<IRentalRepository>(context => {
     return async () => {
       const dbClient = await getDatabaseClient();
       return new MongoDbRequestRepository(dbClient);

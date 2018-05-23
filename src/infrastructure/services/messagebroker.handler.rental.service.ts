@@ -18,10 +18,7 @@ export class MessageBrokerHandlerRentalService {
   ) {}
 
   public async postInit() {
-    this.messageHandler = await this.messageHandlerProvider(
-      RabbitMQExchange.Default,
-      RabbitMQQueue.Default
-    );
+    this.messageHandler = await this.messageHandlerProvider(RabbitMQExchange.Default, RabbitMQQueue.Default);
 
     console.log('Starting message handling, (handling outstanding events)');
     await this.messageHandler.start(this.handleMessage.bind(this));
@@ -59,12 +56,12 @@ export class MessageBrokerHandlerRentalService {
   private async handleCustomerUpdated(body?: any) {
     const customer = new Customer();
 
-    return this.rentalService.customerUpdated(customer);
+    return this.rentalService.customerUpdated(customer.id, customer);
   }
 
   private async handleCustomerDeleted(body: any) {
     const customer = new Customer();
 
-    return this.rentalService.customerDeleted(customer._id);
+    return this.rentalService.customerDeleted(customer.id);
   }
 }

@@ -16,7 +16,6 @@ export class RabbitMQMessagePublisher implements IMessagePublisher {
   ): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       if (type === MessageType.Unknown) {
-        // tslint:disable-next-line:quotemark
         reject(new Error("Unable to 'handle' Unknown message type"));
         return;
       }

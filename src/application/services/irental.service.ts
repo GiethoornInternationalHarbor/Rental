@@ -3,15 +3,34 @@ import { Request } from '../../domain/Request';
 
 export interface IRentalService {
 
+  /*
+  * @param Customer object
+  */
   customerCreated(customer: Customer): Promise<Customer>;
 
-  customerUpdated(customer: Customer): Promise<Customer>;
+  /*
+  * @param Customer id
+  * @param Customer object
+  */
+  customerUpdated(id: string, customer: Customer): Promise<Customer>;
 
+  /*
+  * @param Customer id
+  */
   customerDeleted(id: string): Promise<Customer>;
 
-  request(): Promise<Request>;
+  /*
+  * @param Request object
+  */
+  request(request: Request): Promise<Request>;
 
-  accept(): Promise<boolean>;
+  /*
+  * @param Request id
+  */
+  accept(id: string, request: Request): Promise<boolean>;
 
-  decline(): Promise<boolean>;
+  /*
+  * @param Request id
+  */
+  decline(id: string, request: Request): Promise<boolean>;
 }

@@ -2,9 +2,9 @@ import { Request } from '../../domain/Request';
 
 export interface IRentalRepository {
 
-    sendRequest(value: string): Promise<Request>;
+    sendRequest(request: Request): Promise<Request>;
 
-    acceptRequest(): Promise<boolean>;
+    acceptRequest(id: string, request: Request): Promise<Request>;
 
-    declineRequest(): Promise<boolean>;
+    declineRequest(id: string, request: Request): Promise<Request>;
 }

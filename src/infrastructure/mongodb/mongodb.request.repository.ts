@@ -11,21 +11,39 @@ import { IRentalDocument, RentalSchema } from './schema/rental.schema';
 export class MongoDbRequestRepository implements IRentalRepository {
   protected Model: Model<IRentalDocument>;
 
-  constructor(@inject(TYPES.MongoDbClient) dbClient: MongoDbClient) {
+  constructor(dbClient: MongoDbClient) {
     this.Model = dbClient.model<IRentalDocument>('Rental', RentalSchema);
   }
 
-  public async sendRequest(question: string): Promise<Request> {
-    const createRequest = await this.Model.create(question);
+  public async sendRequest(request: Request): Promise<Request> {
+    const createRequest = await this.Model.create(request);
+
     const createdRequest = mapModelToEntity<IRentalDocument, Request>(createRequest, Request);
+    
     return createdRequest;
   }
 
-  public async acceptRequest(): Promise<boolean> {
-    return true;
+  public async acceptRequest(id: String, request: Request): Promise<Request> {
+    const getRequest = await this.Model.findByIdAndUpdate(id, request, { new: true });
+  
+    if (getRequest === null) {
+      throw new Error('Customer not found');
+    }
+
+    const updatedRequest = mapModelToEntity<IRentalDocument, Request>(getRequest, Request);
+
+    return updatedRequest;
   }
 
-  public async declineRequest(): Promise<boolean> {
-    return false;
+  public async declineRequest(id: string, request: Request): Promise<Request> {
+    const getRequest = await this.Model.findByIdAndUpdate(id, request, { new: true });
+  
+    if (getRequest === null) {
+      throw new Error('Customer not found');
+    }
+
+    const updatedRequest = mapModelToEntity<IRentalDocument, Request>(getRequest, Request);
+
+    return updatedRequest;
   }
 }

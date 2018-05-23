@@ -19,20 +19,34 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
   ) {}
 
   public async customerCreated(customer: Customer): Promise<Customer> {
+    // Also publish it as an message
+    const messagePublisher = await this.getMessagePublisher();
+    await messagePublisher.publishMessage(MessageType.CustomerUpdated);
+
     return customer;
   }
 
-  public async customerUpdated(customer: Customer): Promise<Customer> {
+  public async customerUpdated(id: string, customer: Customer): Promise<Customer> {
+    // Also publish it as an message
+    const messagePublisher = await this.getMessagePublisher();
+    await messagePublisher.publishMessage(MessageType.CustomerUpdated);
+
     return customer;
   }
 
   public async customerDeleted(id: string): Promise<Customer> {
+     // Also publish it as an message
+     const messagePublisher = await this.getMessagePublisher();
+     await messagePublisher.publishMessage(MessageType.CustomerDeleted);
+    
     return Customer;
+    
   }
 
-  public async request(): Promise<Request> {
-    const request = await this.getRentalRepository();
-    request.sendRequest('request sended');
+  public async request(request: Request): Promise<Request> {
+    const requestRepository = await this.getRentalRepository();
+    
+    requestRepository.sendRequest(request);
 
     // Also publish it as an message
     const messagePublisher = await this.getMessagePublisher();
@@ -41,15 +55,25 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
     return request;
   }
 
-  public async accept(): Promise<boolean> {
-    const request = await this.getRentalRepository();
-    request.acceptRequest();
+  public async accept(id: string, request: Request): Promise<boolean> {
+    const rentalRepository = await this.getRentalRepository();
+    rentalRepository.acceptRequest(id, request);
+
+    // Also publish it as an message
+    const messagePublisher = await this.getMessagePublisher();
+    await messagePublisher.publishMessage(MessageType.RentalAccepted);
+    
     return true;
   }
 
-  public async decline(): Promise<boolean> {
-    const request = await this.getRentalRepository();
-    request.declineRequest();
+  public async decline(id: string, request: Request): Promise<boolean> {
+    const rentalRepository = await this.getRentalRepository();
+    rentalRepository.declineRequest(id, request);
+
+    // Also publish it as an message
+    const messagePublisher = await this.getMessagePublisher();
+    await messagePublisher.publishMessage(MessageType.RentalDeclined);
+    
     return false;
   }
 
@@ -61,7 +85,6 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
    * Gets the message publisher
    */
   private async getMessagePublisher() {
-    const t = await this.messagePublisherProvider(RabbitMQExchange.Default);
-    return t;
+    return await this.messagePublisherProvider(RabbitMQExchange.Default);
   }
 }

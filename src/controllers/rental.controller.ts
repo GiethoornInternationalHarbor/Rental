@@ -6,10 +6,12 @@ import {
   interfaces,
   next,
   request,
-  response
+  response,
+  httpPut
 } from 'inversify-express-utils';
 import { IRentalService } from '../application/services/irental.service';
 import { TYPES } from '../di/types';
+import { Request } from '../domain/Request';
 
 @controller('/api/v1/rental')
 export class RentalController implements interfaces.Controller {
@@ -19,20 +21,21 @@ export class RentalController implements interfaces.Controller {
 
   @httpPost('/request')
   private async arrive(@request() req: express.Request, @response() res: express.Response) {
-    // tslint:disable-next-line:no-shadowed-variable
-    const sendRequest = await this.rentalService.request();
+    const sendRequest = await this.rentalService.request(req.body);
     res.status(201).json(req.body);
   }
 
-  @httpPost('/accept')
+  @httpPut('/accept/:id')
   private async accept(@request() req: express.Request, @response() res: express.Response) {
-    const acceptedRequest = await this.rentalService.accept();
-    res.status(201).json(req.body);
+    let acceptedRequest;
+    acceptedRequest = await this.rentalService.accept(req.params.id, req.body);
+    res.status(200).json(acceptedRequest);
   }
 
-  @httpPost('/decline')
+  @httpPut('/decline/:id')
   private async decline(@request() req: express.Request, @response() res: express.Response) {
-    const declinedRequest = await this.rentalService.decline();
-    res.status(201).json(req.body);
+    let declinedRequest;
+    declinedRequest = await this.rentalService.decline(req.params.id, req.body);
+    res.status(200).json(declinedRequest);
   }
 }

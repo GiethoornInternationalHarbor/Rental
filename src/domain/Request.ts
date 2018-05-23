@@ -1,7 +1,7 @@
 import { Model } from 'objectmodel';
 
 export class Request extends Model({
-  question: String,
+  request: String,
   accepted: Boolean
 }) {}
 

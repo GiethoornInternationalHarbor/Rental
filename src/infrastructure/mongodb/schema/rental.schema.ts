@@ -4,6 +4,13 @@ import { Request } from '../../../domain/Request';
 export interface IRentalDocument extends Request, Document {}
 
 export const RentalSchema = new Schema({
-  name: String,
-  accepted: Boolean
+  request:{
+    type: String,
+    required: true
+}, 
+  accepted: {
+    type: Boolean,
+    required: false,
+    default: false
+} 
 });
