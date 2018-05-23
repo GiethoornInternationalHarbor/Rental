@@ -18,9 +18,7 @@ export class MongoDbRequestRepository implements IRentalRepository {
   public async sendRequest(request: Request): Promise<Request> {
     const createRequest = await this.Model.create(request);
 
-    const createdRequest = mapModelToEntity<IRentalDocument, Request>(createRequest, Request);
-    
-    return createdRequest;
+    return mapModelToEntity<IRentalDocument, Request>(createRequest, Request);
   }
 
   public async acceptRequest(id: String, request: Request): Promise<Request> {
@@ -30,9 +28,7 @@ export class MongoDbRequestRepository implements IRentalRepository {
       throw new Error('Customer not found');
     }
 
-    const updatedRequest = mapModelToEntity<IRentalDocument, Request>(getRequest, Request);
-
-    return updatedRequest;
+    return mapModelToEntity<IRentalDocument, Request>(getRequest, Request);
   }
 
   public async declineRequest(id: string, request: Request): Promise<Request> {
@@ -42,8 +38,6 @@ export class MongoDbRequestRepository implements IRentalRepository {
       throw new Error('Customer not found');
     }
 
-    const updatedRequest = mapModelToEntity<IRentalDocument, Request>(getRequest, Request);
-
-    return updatedRequest;
+    return mapModelToEntity<IRentalDocument, Request>(getRequest, Request);
   }
 }
