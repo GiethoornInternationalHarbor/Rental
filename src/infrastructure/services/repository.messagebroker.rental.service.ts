@@ -35,11 +35,13 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
   }
 
   public async customerDeleted(id: string): Promise<Customer> {
-     // Also publish it as an message
-     const messagePublisher = await this.getMessagePublisher();
-     await messagePublisher.publishMessage(MessageType.CustomerDeleted);
+    const customerObj = new Customer;
     
-    return Customer;
+    // Also publish it as an message
+    const messagePublisher = await this.getMessagePublisher();
+    await messagePublisher.publishMessage(MessageType.CustomerDeleted);
+    
+    return customerObj;
     
   }
 

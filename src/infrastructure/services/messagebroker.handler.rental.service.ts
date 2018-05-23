@@ -43,24 +43,25 @@ export class MessageBrokerHandlerRentalService {
       }
       case MessageType.CustomerDeleted: {
         await this.handleCustomerDeleted(body);
+        break;
       }
     }
   }
 
   private async handleCustomerCreated(body: any) {
-    const customer = new Customer();
+    const customer = new Customer(body);
 
     return this.rentalService.customerCreated(customer);
   }
 
-  private async handleCustomerUpdated(body?: any) {
-    const customer = new Customer();
+  private async handleCustomerUpdated(body: any) {
+    const customer = new Customer(body);
 
     return this.rentalService.customerUpdated(customer.id, customer);
   }
 
   private async handleCustomerDeleted(body: any) {
-    const customer = new Customer();
+    const customer = new Customer(body);
 
     return this.rentalService.customerDeleted(customer.id);
   }
