@@ -12,8 +12,10 @@ import {
 import { IRentalService } from '../application/services/irental.service';
 import { TYPES } from '../di/types';
 import { Request } from '../domain/Request';
+import { Ship } from '../domain/Ship';
+import { Customer } from '../domain/Customer';
 
-@controller('/api/v1/rental')
+@controller('/api/rental')
 export class RentalController implements interfaces.Controller {
   constructor(
     @inject(TYPES.IRentalService) private rentalService: IRentalService

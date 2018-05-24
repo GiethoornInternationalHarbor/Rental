@@ -8,5 +8,5 @@ export class Customer extends Model({
   Residence: String
 
 }) {
-  public id: string;
+  public id: String;
 }

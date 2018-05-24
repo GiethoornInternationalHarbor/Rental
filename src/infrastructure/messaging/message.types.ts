@@ -26,10 +26,10 @@ export namespace MessageType {
   }
 
 const messageTypeName = new Map<MessageType, string>([
-    [MessageType.RentalRequested, 'RentalRequestedEvent'],
-    [MessageType.RentalAccepted, 'RentalAcceptedEvent'],
-    [MessageType.RentalDeclined, 'RentalDeclinedEvent'],
-    [MessageType.CustomerCreated, 'CustomerCreatedEvent'],
-    [MessageType.CustomerUpdated, 'CustomerUpdatedEvent'],
-    [MessageType.CustomerDeleted, 'CustomerDeletedEvent']
+    [MessageType.RentalRequested, 'RentalRequested'],
+    [MessageType.RentalAccepted, 'RentalAccepted'],
+    [MessageType.RentalDeclined, 'RentalDeclined'],
+    [MessageType.CustomerCreated, 'CustomerCreated'],
+    [MessageType.CustomerUpdated, 'CustomerUpdated'],
+    [MessageType.CustomerDeleted, 'CustomerDeleted']
   ]);
