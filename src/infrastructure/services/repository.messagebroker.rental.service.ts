@@ -45,8 +45,9 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
     
   }
 
-  public async request(request: Request): Promise<Request> {
+  public async request(body: any): Promise<Request> {
     const requestRepository = await this.getRentalRepository();
+    const request = new Request(body);
     
     const requestSended = requestRepository.sendRequest(request);
 
@@ -57,8 +58,10 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
     return request;
   }
 
-  public async accept(id: string, request: Request): Promise<boolean> {
+  public async accept(id: string, body: any): Promise<boolean> {
     const rentalRepository = await this.getRentalRepository();
+
+    const request = new Request(body);
     
     const acceptedRentalRequest = rentalRepository.acceptRequest(id, request);
 
@@ -69,8 +72,9 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
     return true;
   }
 
-  public async decline(id: string, request: Request): Promise<boolean> {
+  public async decline(id: string, body: any): Promise<boolean> {
     const rentalRepository = await this.getRentalRepository();
+    const request = new Request(body);
     
     const DeclinedRequest = rentalRepository.declineRequest(id, request);
 
