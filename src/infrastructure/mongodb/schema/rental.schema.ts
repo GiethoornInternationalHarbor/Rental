@@ -8,7 +8,11 @@ export const RentalSchema = new Schema({
   request:{
     type: String,
     required: true
-  }, 
+  },
+  requestId:{
+    type: guid,
+    required: true
+  },
   customerId:{
     type: guid,
     required: true

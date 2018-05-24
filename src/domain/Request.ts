@@ -5,6 +5,7 @@ import { guid } from 'inversify';
 
 export class Request extends Model({
   request: String,
+  requestId: guid,
   customerId: guid,
   shipId: guid,
   accepted: Boolean
