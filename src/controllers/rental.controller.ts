@@ -22,20 +22,35 @@ export class RentalController implements interfaces.Controller {
   ) {}
 
   @httpPost('/request')
-  private async request(@request() req: express.Request, @response() res: express.Response) {
+  private async request(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
     const sendRequest = await this.rentalService.request(req.body);
-    res.status(201).json(req.body);
+    res.status(201).json(sendRequest);
   }
 
   @httpPut('/accept/:id')
-  private async accept(@request() req: express.Request, @response() res: express.Response) {
-    const acceptedRequest = await this.rentalService.accept(req.params.id, req.body);
+  private async accept(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    const acceptedRequest = await this.rentalService.accept(
+      req.params.id,
+      req.body
+    );
     res.status(200).json(acceptedRequest);
   }
 
   @httpPut('/decline/:id')
-  private async decline(@request() req: express.Request, @response() res: express.Response) {
-    const declinedRequest = await this.rentalService.decline(req.params.id, req.body);
+  private async decline(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    const declinedRequest = await this.rentalService.decline(
+      req.params.id,
+      req.body
+    );
     res.status(200).json(declinedRequest);
   }
 }
