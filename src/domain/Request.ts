@@ -1,14 +1,16 @@
 import { Model } from 'objectmodel';
 import { Customer } from './Customer';
 import { Ship } from './Ship';
-import { guid } from 'inversify';
+import { v4 as uuid } from 'uuid';
 
 export class Request extends Model({
+  id: String,
   request: String,
-  requestId: guid,
-  customerId: guid,
-  shipId: guid,
+  customerId: String,
   accepted: Boolean
 }) {}
 
-Request.defaults({accepted: false});
+Request.defaults({
+  id: uuid(),
+  accepted: false
+});

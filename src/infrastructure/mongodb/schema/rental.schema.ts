@@ -1,6 +1,6 @@
 import { Document, Schema } from 'mongoose';
 import { Request } from '../../../domain/Request';
-import { guid } from 'inversify';
+import { v4 as uuid } from 'uuid';
 
 export interface IRentalDocument extends Request, Document {}
 
@@ -9,16 +9,13 @@ export const RentalSchema = new Schema({
     type: String,
     required: true
   },
-  requestId:{
-    type: guid,
-    required: true
+  _id:{
+    type: String,
+    required: true,
+    default: _=> uuid()
   },
   customerId:{
-    type: guid,
-    required: true
-  }, 
-  shipId:{
-    type: guid,
+    type: String,
     required: true
   }, 
   accepted: {
