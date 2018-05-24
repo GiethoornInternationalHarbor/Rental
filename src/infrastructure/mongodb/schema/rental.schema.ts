@@ -9,16 +9,13 @@ export const RentalSchema = new Schema({
     type: String,
     required: true
   },
-  requestId:{
-    type: uuid,
-    required: true
+  _id:{
+    type: String,
+    required: true,
+    default: _=> uuid()
   },
   customerId:{
-    type: uuid,
-    required: true
-  }, 
-  shipId:{
-    type: uuid,
+    type: String,
     required: true
   }, 
   accepted: {

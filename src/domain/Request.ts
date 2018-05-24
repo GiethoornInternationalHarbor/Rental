@@ -6,8 +6,7 @@ import { v4 as uuid } from 'uuid';
 export class Request extends Model({
   id: String,
   request: String,
-  customerId: uuid,
-  shipId: uuid,
+  customerId: String,
   accepted: Boolean
 }) {}
 
