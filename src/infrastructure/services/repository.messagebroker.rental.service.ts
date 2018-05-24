@@ -63,7 +63,7 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
       requestSended
     );
 
-    return request;
+    return requestSended;
   }
 
   public async accept(id: string, body: any): Promise<boolean> {
