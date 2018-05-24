@@ -48,33 +48,35 @@ export class RepositoryAndMessageBrokerRentalService implements IRentalService {
   public async request(request: Request): Promise<Request> {
     const requestRepository = await this.getRentalRepository();
     
-    requestRepository.sendRequest(request);
+    const requestSended = requestRepository.sendRequest(request);
 
     // Also publish it as an message
     const messagePublisher = await this.getMessagePublisher();
-    await messagePublisher.publishMessage(MessageType.RentalRequested);
+    await messagePublisher.publishMessage(MessageType.RentalRequested, requestSended);
 
     return request;
   }
 
   public async accept(id: string, request: Request): Promise<boolean> {
     const rentalRepository = await this.getRentalRepository();
-    rentalRepository.acceptRequest(id, request);
+    
+    const acceptedRentalRequest = rentalRepository.acceptRequest(id, request);
 
     // Also publish it as an message
     const messagePublisher = await this.getMessagePublisher();
-    await messagePublisher.publishMessage(MessageType.RentalAccepted);
+    await messagePublisher.publishMessage(MessageType.RentalAccepted, acceptedRentalRequest);
     
     return true;
   }
 
   public async decline(id: string, request: Request): Promise<boolean> {
     const rentalRepository = await this.getRentalRepository();
-    rentalRepository.declineRequest(id, request);
+    
+    const DeclinedRequest = rentalRepository.declineRequest(id, request);
 
     // Also publish it as an message
     const messagePublisher = await this.getMessagePublisher();
-    await messagePublisher.publishMessage(MessageType.RentalDeclined);
+    await messagePublisher.publishMessage(MessageType.RentalDeclined, DeclinedRequest);
     
     return false;
   }
